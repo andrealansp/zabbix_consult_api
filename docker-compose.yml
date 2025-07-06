@@ -1,0 +1,11 @@
+services:
+
+  api_telecom:
+    image: apitelecom:0.1
+    container_name: telecom_ctr
+    volumes:
+      - api_data:/app/data
+    ports:
+      - "8000:8001"
+volumes:
+  api_data:
