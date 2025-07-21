@@ -1,14 +1,36 @@
 services:
-
   api_telecom:
     image: apitelecom:0.1
     container_name: telecom_ctr
     restart: always
+    # Novo formato para o comando
     command: >
-      python manage.py makemigrations && python manage.py migrate && gunicorn app.wsgi.application --bind 0.0.0.0:8000
+      sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn app.wsgi --bind 0.0.0.0:8000"
     volumes:
       - api_data:/app/data
     ports:
-      - "8000:8001"
+      - "8000:8000"
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024M
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.api_telecom.rule=Host(`apitelecom.alvesdevpy.com.br`) && PathPrefix(`/api`)"
+        - traefik.http.routers.api_telecom.entrypoints=websecure
+        - traefik.http.routers.api_telecom.priority=1
+        - traefik.http.routers.api_telecom.tls.certresolver=letsencryptresolver
+        - traefik.http.routers.api_telecom.service=api_telecom_perkons
+
 volumes:
   api_data:
+
+
+

@@ -26,7 +26,7 @@ class TriggersActivesView(views.APIView):
                 return response.Response(
                     data={
                         "message": "Triggers ativas encontradas com sucesso.",
-                        "triggers": triggers_actives_host
+                        "triggers": str(triggers_actives_host)
                     },
                     status=status.HTTP_200_OK)
             else:
@@ -62,7 +62,7 @@ class TriggersDescriptionView(views.APIView):
                 return response.Response(
                     data={
                         "message": "Triggers encontradas pela descrição parcial com sucesso.",
-                        "triggers": triggers_by_description
+                        "triggers": str(triggers_by_description)
                     },
                     status=status.HTTP_200_OK)
             else:
@@ -100,7 +100,7 @@ class TriggersHostView(views.APIView):
             return response.Response(
                 data={
                     "message": "Triggers ativas encontradas com sucesso.",
-                    "triggers": triggers_actives_host
+                    "triggers": str(triggers_actives_host)
                 },
                 status=status.HTTP_200_OK)
         else:
