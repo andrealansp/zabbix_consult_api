@@ -1,9 +1,8 @@
 services:
   api_telecom:
-    image: apitelecom:0.1
-    container_name: telecom_ctr
+    image: zabbixconsult:1.0.1
+    container_name: zabbix_consult_ctr
     restart: always
-    # Novo formato para o comando
     command: >
       sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn app.wsgi --bind 0.0.0.0:8000"
     volumes:
