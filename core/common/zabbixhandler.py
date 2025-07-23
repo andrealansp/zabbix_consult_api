@@ -88,7 +88,6 @@ class ZabbixHandler:
             "auth": auth_token,
             "id": 2
         }
-        print(payload)
 
         response = requests.post(self.zabbix_url, json=payload)
         response.raise_for_status()
